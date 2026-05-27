@@ -228,7 +228,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Try Gemini API
   const apiKey = process.env.GEMINI_API_KEY;
-  if (apiKey && apiKey !== "AIzaSyBR8pgThairwnnfKwIlRRVmaIYwYCO_rjU") {
+  if (apiKey && apiKey !== "MY_GEMINI_API_KEY") {
     try {
       const ai = new GoogleGenAI({
         apiKey,
