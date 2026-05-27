@@ -1,20 +1,26 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Wrongle
 
-# Run and deploy your AI Studio app
+The World's Most Inaccurate, Highly Confident Search Engine.
 
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/9c93332a-a93c-4eab-8148-12b95145fc2c
+A satirical parody search engine that gives confidently wrong answers to your queries.
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm install
+   ```
+2. Run the app:
+   ```bash
+   npm run dev
+   ```
+
+## Features
+
+- Satirical search results with absurd answers
+- Dark mode support
+- Multiple tabs: All, Images, Videos, Shopping
+- Fake products and media results
+- "Feeling Unlucky?" random search
