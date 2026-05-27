@@ -364,24 +364,9 @@ export default function App() {
       {!hasSearched && (
         <div className="flex-grow flex flex-col items-center justify-center px-4 max-w-3xl mx-auto w-full pt-16 pb-24">
           
-          {/* Header Utilities */}
-          <div className="absolute top-6 right-6 flex items-center space-x-4 text-xs font-semibold tracking-wider text-slate-500 uppercase">
-            <span className="hover:text-blue-600 transition-colors pointer-events-none text-slate-400 hidden sm:inline">Grounded in 0% Reality</span>
-            <div className="h-4 w-px bg-slate-200 hidden sm:block"></div>
-            <button 
-              onClick={() => {
-                setInfoTab("readme");
-                setShowInfoModal(true);
-              }} 
-              className="hover:text-slate-800 transition-colors font-bold text-indigo-600 bg-indigo-50/50 hover:bg-indigo-50 border border-indigo-100 hover:border-indigo-200 px-3 py-1 rounded-full cursor-pointer normal-case"
-            >
-              Readme 📖
-            </button>
-          </div>
-
           {/* Central Branded Logo with Clean Typography */}
-          <div className="text-center mb-8">
-            <h1 className="text-7xl font-bold tracking-tighter select-none font-display">
+          <div className="text-center mb-10 pt-4 sm:pt-10">
+            <h1 className="text-7xl sm:text-8xl font-bold tracking-tighter select-none font-display">
               <span className="text-blue-500">W</span>
               <span className="text-red-500">r</span>
               <span className="text-yellow-500">o</span>
@@ -390,7 +375,7 @@ export default function App() {
               <span className="text-red-500">l</span>
               <span className="text-blue-500">e</span>
             </h1>
-            <p className="text-sm font-mono tracking-wide text-slate-400 mt-3 select-none">
+            <p className="text-xl sm:text-2xl md:text-3xl font-display font-medium tracking-tight text-slate-600 mt-6 select-none max-w-2xl mx-auto leading-snug">
               The World's Most Inaccurate, Highly Confident Search Engine.
             </p>
           </div>
