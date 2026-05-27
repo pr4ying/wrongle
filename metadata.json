@@ -1,0 +1,6 @@
+{
+  "name": "Wrong Answers Search Engine",
+  "description": "A satirical search engine that guarantees 100% incorrect answers, completely irrelevant links, and humorous search suggestions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
