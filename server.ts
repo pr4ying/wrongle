@@ -241,12 +241,16 @@ app.post("/api/search", async (req: Request, res: Response) => {
 
   // 1. Check if we have a perfect predefined answer from the satirical catalog
   if (PREDEFINED_CATALOG[normalizedQuery]) {
-    res.json(PREDEFINED_CATALOG[normalizedQuery]);
+    res.json({
+      ...PREDEFINED_CATALOG[normalizedQuery],
+      _diagnostics: { source: "catalog", hasApiKey: !!process.env.GEMINI_API_KEY }
+    });
     return;
   }
 
   // 2. Try to query Gemini API for a highly stylized custom hilarious answer
   const ai = getGeminiClient();
+  let apiErrorMessage = "";
   if (ai) {
     try {
       const prompt = `Generate a SATIRICAL, WRONG-ANSWERS-ONLY search engine page result for the following search query: "${query}".
@@ -357,17 +361,30 @@ Provide your output strictly in the following JSON format:
       const responseText = response.text;
       if (responseText) {
         const parsedData = JSON.parse(responseText.trim());
-        res.json(parsedData);
+        res.json({
+          ...parsedData,
+          _diagnostics: { source: "gemini", hasApiKey: true }
+        });
         return;
       }
-    } catch (apiError) {
+    } catch (apiError: any) {
+      apiErrorMessage = apiError?.message || String(apiError);
       console.error("Gemini API Error, falling back to procedural generator:", apiError);
     }
+  } else {
+    apiErrorMessage = "GEMINI_API_KEY environment variable is not defined or is a default placeholder.";
   }
 
   // 3. Fall back gracefully to procedural generation if Gemini fails, represents local autonomy perfectly
   const proceduralResult = generateProceduralWrongAnswer(query);
-  res.json(proceduralResult);
+  res.json({
+    ...proceduralResult,
+    _diagnostics: {
+      source: "procedural",
+      hasApiKey: !!getGeminiClient(),
+      error: apiErrorMessage
+    }
+  });
 });
 
 // Configure Vite middleware for development

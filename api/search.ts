@@ -223,11 +223,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Check predefined catalog
   if (PREDEFINED_CATALOG[normalizedQuery]) {
-    return res.json(PREDEFINED_CATALOG[normalizedQuery]);
+    return res.json({
+      ...PREDEFINED_CATALOG[normalizedQuery],
+      _diagnostics: { source: "catalog", hasApiKey: !!process.env.GEMINI_API_KEY }
+    });
   }
 
   // Try Gemini API
   const apiKey = process.env.GEMINI_API_KEY;
+  let apiErrorMessage = "";
   if (apiKey && apiKey !== "MY_GEMINI_API_KEY") {
     try {
       const ai = new GoogleGenAI({
@@ -347,14 +351,27 @@ Provide your output strictly in the following JSON format:
       const responseText = response.text;
       if (responseText) {
         const parsedData = JSON.parse(responseText.trim());
-        return res.json(parsedData);
+        return res.json({
+          ...parsedData,
+          _diagnostics: { source: "gemini", hasApiKey: true }
+        });
       }
-    } catch (apiError) {
+    } catch (apiError: any) {
+      apiErrorMessage = apiError?.message || String(apiError);
       console.error("Gemini API Error, falling back to procedural generator:", apiError);
     }
+  } else {
+    apiErrorMessage = "GEMINI_API_KEY environment variable is not defined or is a default placeholder.";
   }
 
   // Fall back to procedural generation
   const proceduralResult = generateProceduralWrongAnswer(query);
-  return res.json(proceduralResult);
+  return res.json({
+    ...proceduralResult,
+    _diagnostics: {
+      source: "procedural",
+      hasApiKey: !!(apiKey && apiKey !== "MY_GEMINI_API_KEY"),
+      error: apiErrorMessage
+    }
+  });
 }
