@@ -1040,10 +1040,10 @@ export default function App() {
                                     {vid.title}
                                   </h4>
                                 </div>
-                                <div className={`text-xs mt-1 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
-                                  <span>Creator: <strong className={darkMode ? "text-slate-300" : "text-slate-700"}>{vid.creator}</strong></span>
+                                <div className={`text-xs mt-1 ${darkMode ? "text-slate-300" : "text-slate-600"}`}>
+                                  <span>Creator: <strong className={darkMode ? "text-slate-100" : "text-slate-800"}>{vid.creator}</strong></span>
                                   <span className="mx-2">•</span>
-                                  <span>{vid.views}</span>
+                                  <span className={darkMode ? "text-slate-300" : "text-slate-600"}>{vid.views}</span>
                                 </div>
                               </div>
                             </div>
