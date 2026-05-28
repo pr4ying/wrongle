@@ -779,8 +779,8 @@ export default function App() {
                             }`}>
                               <Sparkles className={`w-4 h-4 animate-pulse ${darkMode ? "fill-blue-300" : "fill-blue-200"}`} />
                             </div>
-                            <span className={`text-sm font-bold bg-clip-text text-transparent tracking-tight font-display ${
-                              darkMode ? "bg-gradient-to-r from-slate-300 via-blue-400 to-slate-400" : "bg-gradient-to-r from-slate-700 via-blue-600 to-slate-600"
+                            <span className={`text-sm font-bold tracking-tight font-display ${
+                              darkMode ? "text-slate-200" : "text-slate-800"
                             }`}>
                               AI Satirical Overview
                             </span>
