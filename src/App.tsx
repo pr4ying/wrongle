@@ -101,7 +101,7 @@ const ABSURD_VIDEOS = [
 ];
 
 // Helper to format direct satirical answer with rich bold and italics
-const formatAnswerHighlight = (text: string, query: string) => {
+const formatAnswerHighlight = (text: string, query: string, darkMode: boolean) => {
   if (!text) return null;
 
   // Normalize query words for bolding
@@ -121,7 +121,9 @@ const formatAnswerHighlight = (text: string, query: string) => {
         if (segment.startsWith("**") && segment.endsWith("**")) {
           const content = segment.slice(2, -2);
           return (
-            <strong key={segmentIdx} className="font-extrabold text-[#111827] not-italic border-b-2 border-indigo-400 pb-[1.5px] bg-slate-50 px-1 rounded">
+            <strong key={segmentIdx} className={`font-extrabold not-italic border-b-2 border-blue-400 pb-[1.5px] px-1 rounded ${
+              darkMode ? "text-slate-900 bg-slate-100" : "text-slate-900 bg-slate-50"
+            }`}>
               {content}
             </strong>
           );
@@ -137,21 +139,23 @@ const formatAnswerHighlight = (text: string, query: string) => {
 
               // Match query words
               const isQueryWord = queryWords.some(qw => cleanWord.includes(qw));
-              
+
               // Capitalized proper nouns
               const firstChar = word.trim()[0];
               const isCapitalized = firstChar && firstChar === firstChar.toUpperCase() && !/^\d/.test(firstChar);
-              
+
               // Highlight proper nouns deterministically to avoid flickering on re-renders
               const wordCodeSum = cleanWord.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
               const shouldHighlightNoun = isCapitalized && word.length > 3 && (wordCodeSum % 3 === 0);
-              
+
               // Numbers/Stats
               const isNumber = /^\d+/.test(cleanWord);
 
               if (isQueryWord) {
                 return (
-                  <strong key={wordIdx} className="font-extrabold text-[#111827] not-italic bg-amber-100/70 border-b-2 border-amber-400 px-0.5 rounded-xs">
+                  <strong key={wordIdx} className={`font-extrabold not-italic border-b-2 border-amber-400 px-0.5 rounded-xs ${
+                    darkMode ? "text-slate-900 bg-amber-200/80" : "text-slate-900 bg-amber-100/70"
+                  }`}>
                     {word}
                   </strong>
                 );
@@ -159,7 +163,9 @@ const formatAnswerHighlight = (text: string, query: string) => {
 
               if (isNumber) {
                 return (
-                  <strong key={wordIdx} className="font-bold text-indigo-950 not-italic border-b border-indigo-300 pb-[1.5px] bg-indigo-50/20 px-0.5">
+                  <strong key={wordIdx} className={`font-bold not-italic border-b border-blue-400 pb-[1.5px] px-0.5 ${
+                    darkMode ? "text-slate-900 bg-blue-200/40" : "text-blue-950 bg-blue-50/20"
+                  }`}>
                     {word}
                   </strong>
                 );
@@ -167,7 +173,9 @@ const formatAnswerHighlight = (text: string, query: string) => {
 
               if (shouldHighlightNoun) {
                 return (
-                  <strong key={wordIdx} className="font-extrabold text-slate-900 not-italic border-b border-indigo-300 pb-[1px]">
+                  <strong key={wordIdx} className={`font-extrabold not-italic border-b border-blue-300 pb-[1px] ${
+                    darkMode ? "text-slate-900" : "text-slate-900"
+                  }`}>
                     {word}
                   </strong>
                 );
@@ -790,7 +798,7 @@ export default function App() {
                           <p className={`text-[17px] md:text-lg leading-relaxed font-sans font-medium italic ${
                             darkMode ? "text-slate-100" : "text-slate-900"
                           }`}>
-                            {formatAnswerHighlight(searchResult.directAnswer, searchResult.query)}
+                            {formatAnswerHighlight(searchResult.directAnswer, searchResult.query, darkMode)}
                           </p>
 
                           <div className={`pt-3 text-[10px] font-mono flex items-center space-x-1 border-t ${
