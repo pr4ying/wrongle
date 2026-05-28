@@ -767,15 +767,21 @@ export default function App() {
                         {/* THE AUTHORITATIVE ABSURD ANSWER BOX */}
                         <div className={`p-6 md:p-8 border rounded-2xl shadow-sm space-y-4 relative overflow-hidden transition-all duration-300 ${
                           darkMode
-                            ? "bg-gradient-to-tr from-violet-950/50 via-indigo-950/60 to-slate-900/40 border-violet-900"
-                            : "bg-gradient-to-tr from-[#f3f0ff]/50 via-[#ecf2ff]/60 to-[#fdf2f8]/40 border-violet-100"
+                            ? "bg-gradient-to-tr from-slate-900/50 via-slate-800/60 to-slate-900/40 border-slate-700"
+                            : "bg-gradient-to-tr from-slate-50/50 via-blue-50/60 to-slate-100/40 border-slate-200"
                         }`}>
                           {/* AI Overview Header resembling Google's Modern Search Engine */}
-                          <div className="flex items-center space-x-2.5 text-indigo-400 select-none pb-1">
-                            <div className="bg-linear-to-tr from-violet-600 to-indigo-600 rounded-full p-1.5 text-white shadow-xs">
-                              <Sparkles className="w-4 h-4 animate-pulse fill-indigo-200" />
+                          <div className={`flex items-center space-x-2.5 select-none pb-1 ${
+                            darkMode ? "text-blue-400" : "text-blue-600"
+                          }`}>
+                            <div className={`rounded-full p-1.5 text-white shadow-xs ${
+                              darkMode ? "bg-gradient-to-tr from-slate-600 to-slate-700" : "bg-gradient-to-tr from-blue-600 to-blue-700"
+                            }`}>
+                              <Sparkles className={`w-4 h-4 animate-pulse ${darkMode ? "fill-blue-300" : "fill-blue-200"}`} />
                             </div>
-                            <span className="text-sm font-bold bg-gradient-to-r from-violet-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent tracking-tight font-display">
+                            <span className={`text-sm font-bold bg-clip-text text-transparent tracking-tight font-display ${
+                              darkMode ? "bg-gradient-to-r from-slate-300 via-blue-400 to-slate-400" : "bg-gradient-to-r from-slate-700 via-blue-600 to-slate-600"
+                            }`}>
                               AI Satirical Overview
                             </span>
                           </div>
